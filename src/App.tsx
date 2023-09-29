@@ -8,11 +8,14 @@ import Stops from './screens/stops';
 import StopRecord from './screens/stopRecord';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import tw from 'twrnc';
+import { Provider } from 'react-redux';
+import store from './AuthStore';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
+    <Provider store={store}>
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#000' }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
@@ -36,6 +39,7 @@ function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
+    </Provider>
   );
 }
 

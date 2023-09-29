@@ -6,9 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthSchema } from '../validators/AuthValidators';
 import { login } from '../validators/api';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../actions/authActions';
 
 function Login() {
-
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const navigation = useNavigation()
 
@@ -23,7 +25,7 @@ function Login() {
     const [loading, setLoading] = useState(false);
     const [isValidated, setIsValidated] = useState(false);
     const [errorText, setErrorText] = useState('');
-
+    
     const handleLogin = async () => {
         setLoading(true);
         setEmailError('');
@@ -34,6 +36,9 @@ function Login() {
             setIsValidated(true);
 
             const token = await login(email, password);
+
+            dispatch(setToken(token));
+
             navigation.navigate('StopRecord');
         } catch (error: any) {
             setIsValidated(false);
