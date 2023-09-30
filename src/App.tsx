@@ -8,38 +8,37 @@ import Stops from './screens/stops';
 import StopRecord from './screens/stopRecord';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import tw from 'twrnc';
-import { Provider } from 'react-redux';
-import store from './AuthStore';
+import { AuthProvider } from './authContext/AuthContext';
 
 const Stack = createStackNavigator();
 
-function App() {
+const App = () => {
   return (
-    <Provider store={store}>
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#000' }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='Login' component={Login} />
-          <Stack.Screen name='Stops' component={Stops} />
-          <Stack.Screen
-            name='StopRecord'
-            component={StopRecord}
-            options={({ navigation }) => ({
-              headerShown: true,
-              headerTransparent: true,
-              title: 'Registro de parada',
-              headerTintColor: 'black',
-              headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
-                  <Icon name='arrow-left' color='green' style={tw`text-2xl font-normal`}/>
-                </TouchableOpacity>
-              ),
-            })}
-          />
-        </Stack.Navigator>
+        <AuthProvider>
+          <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Stops' component={Stops} />
+            <Stack.Screen
+              name='StopRecord'
+              component={StopRecord}
+              options={({ navigation }) => ({
+                headerShown: true,
+                headerTransparent: true,
+                title: 'Registro de parada',
+                headerTintColor: 'black',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
+                    <Icon name='arrow-left' color='green' style={tw`text-2xl font-normal`} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+          </Stack.Navigator>
+        </AuthProvider>
       </NavigationContainer>
     </GestureHandlerRootView>
-    </Provider>
   );
 }
 

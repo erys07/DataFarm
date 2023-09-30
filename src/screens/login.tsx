@@ -6,11 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthSchema } from '../validators/AuthValidators';
 import { login } from '../validators/api';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { setToken } from '../actions/authActions';
+import { AuthProvider, useAuth } from '../authContext/AuthContext';
 
 function Login() {
-    const dispatch = useDispatch();
+    const { token, setAuthToken, removeAuthToken } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigation = useNavigation()
 
@@ -37,9 +36,9 @@ function Login() {
 
             const token = await login(email, password);
 
-            dispatch(setToken(token));
+            console.log('Token obtido:', token); // Remover
 
-            navigation.navigate('StopRecord');
+            navigation.navigate('Stops');
         } catch (error: any) {
             setIsValidated(false);
 

@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { machines } from '../validators/api';
 import { Dropdown } from 'react-native-element-dropdown';
-import { useSelector } from 'react-redux';
 import tw from 'twrnc';
+import { useAuth } from '../authContext/AuthContext';
 
 const StopRecord = () => {
+  const { token } = useAuth();
   const [selectedItem, setSelectedItem] = useState<{ label: string; value: string; } | null>(null);
   const [machineryData, setMachineryData] = useState<{ label: string; value: string; }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const token = useSelector((state: any) => state.auth.token);
-
+  
   useEffect(() => {
     console.log('Token:', token);  // Remover
     if (token) {

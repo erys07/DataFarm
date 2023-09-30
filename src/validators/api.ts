@@ -31,7 +31,7 @@ export async function login(email: string, senha: string) {
 export async function machines(name: string, serialNumber: string) {
     try {
       const url = `${apiUrl}/mobile/machine/resources?name=${name}&serialNumber=${serialNumber}`;
-  
+
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -39,13 +39,13 @@ export async function machines(name: string, serialNumber: string) {
           Accept: 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         throw new Error(`Erro de rede - Código ${response.status}`);
       }
-  
+
       const jsonData = await response.json();
-  
+
       return jsonData;
     } catch (error) {
       console.error('Erro na requisição:', error);
